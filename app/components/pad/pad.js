@@ -5,10 +5,8 @@ require('./pad.scss');
 
 class Pad extends React.Component {
   render() {
-    console.log(this.props);
-    const isOn = this.props.isOn ? 'hit' : '';
+    const isOn = this.props.isOn  ? 'hit' : '';
     const classes = classNames('pad', isOn);
-    console.log(classes);
     return (
       <div className={classes}>
         {this.props.step}
