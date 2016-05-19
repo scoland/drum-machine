@@ -8,7 +8,7 @@ class Pad extends React.Component {
     const isOn = this.props.isOn  ? 'hit' : '';
     const classes = classNames('pad', isOn);
     return (
-      <div className={classes}>
+      <div className={classes} onClick={this.props.clickHandler} data-step={this.props.step}>
         {this.props.step}
       </div>
     );

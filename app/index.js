@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matrix: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+      matrix: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
       currentNote: null
     }
   }
@@ -25,8 +25,7 @@ class App extends React.Component {
         currentNote: note
       });
 
-      if (this.state.matrix[note] === 1) {
-        console.log('inside')
+      if (this.state.matrix[note]) {
         kit.triggerAttackRelease("kick", "4n", time);
       }
 
@@ -38,10 +37,25 @@ class App extends React.Component {
     });
   }
 
+  trigToggle(event) {
+    const step = event.target.dataset.step;
+    const newMatrix = this.state.matrix;
+    newMatrix[step] = !newMatrix[step];
+    console.log(newMatrix);
+    this.setState({
+      matrix: newMatrix
+    });
+  }
+
   render() {
     const pads = [];
     for (var i = 0; i < 16; i++) {
-      pads.push(<Pad step={i} isOn={this.state.currentNote === i}/>)
+      pads.push(<Pad
+                  step={i}
+                  isOn={this.state.currentNote === i}
+                  key={i}
+                  clickHandler={this.trigToggle.bind(this)}
+                />)
     }
 
     return (
