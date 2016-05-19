@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Pad from './components/pad/pad';
+import Pad from './components/pad';
 import Tone from 'tone';
+import Transport from './components/transport';
 require('./app.scss');
 
 class App extends React.Component {
@@ -11,6 +12,7 @@ class App extends React.Component {
       matrix: Array(16).fill(false),
       currentNote: null
     }
+    this.sequence = null;
   }
 
   componentDidMount() {
@@ -20,7 +22,7 @@ class App extends React.Component {
 			"volume" : -10,
 		}).toMaster();
 
-    const seq = new Tone.Sequence((time, note) => {
+    this.sequence = new Tone.Sequence((time, note) => {
       this.setState({
         currentNote: note
       });
@@ -33,7 +35,6 @@ class App extends React.Component {
 
     Tone.Buffer.on('load', () => {
       Tone.Transport.start();
-      seq.start();
     });
   }
 
@@ -44,6 +45,17 @@ class App extends React.Component {
     this.setState({
       matrix: newMatrix
     });
+  }
+
+  playToggle() {
+    if (this.sequence.state === 'started') {
+      this.sequence.stop();
+      this.setState({
+        currentNote: null
+      });
+    } else {
+      this.sequence.start();
+    }
   }
 
   render() {
@@ -59,8 +71,11 @@ class App extends React.Component {
     }
 
     return (
-      <div className="pad-container">
-        {pads}
+      <div className="machine-contain">
+        <Transport clickHandler={this.playToggle.bind(this)}/>
+        <div className="pad-container">
+          {pads}
+        </div>
       </div>
     );
   }
