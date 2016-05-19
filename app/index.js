@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matrix: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+      matrix: Array(16).fill(false),
       currentNote: null
     }
   }
@@ -41,7 +41,6 @@ class App extends React.Component {
     const step = event.target.dataset.step;
     const newMatrix = this.state.matrix;
     newMatrix[step] = !newMatrix[step];
-    console.log(newMatrix);
     this.setState({
       matrix: newMatrix
     });
@@ -53,6 +52,7 @@ class App extends React.Component {
       pads.push(<Pad
                   step={i}
                   isOn={this.state.currentNote === i}
+                  isTrig={this.state.matrix[i]}
                   key={i}
                   clickHandler={this.trigToggle.bind(this)}
                 />)
