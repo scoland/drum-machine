@@ -1,9 +1,15 @@
 .transport-contain {
-  width: 100px;
-  height: 100px;
-  background-color: #BA8FC2;
 
   .play-toggle {
-    background-color: #F19EB1;
+    text-align:center;
+    width: 6em;
+    height: 4em;
+    background-color: #6C6692;
+    display: block;
+    i {
+      padding-top: .3em;
+      color: #F19EB1;
+      font-size: 2.5em;
+    }
   }
 }

@@ -71,9 +71,11 @@ class App extends React.Component {
                 />)
     }
 
+    const isPlaying = this.state.currentNote ? true : false;
+
     return (
       <div className="machine-contain">
-        <Transport clickHandler={this.playToggle.bind(this)}/>
+        <Transport clickHandler={this.playToggle.bind(this)} isPlaying={isPlaying}/>
         <div className="pad-container">
           {pads}
         </div>
