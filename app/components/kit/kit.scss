@@ -1,0 +1,24 @@
+.kit-container {
+  display: inline-block;
+  float: left;
+
+  a {
+    cursor: pointer;
+    font-family: 'helvetica', sans-serif;
+    text-transform: uppercase;
+    color: #F19EB1;
+    text-align: center;
+    line-height: 4em;
+    display: inline-block;
+    margin-left: 1em;
+    float: left;
+    width: 6em;
+    height: 4em;
+    background-color: #6C6692;
+  }
+
+  .active {
+    background-color: #F19EB1;
+    color: #6C6692;
+  }
+}

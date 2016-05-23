@@ -1,5 +1,8 @@
 .transport-contain {
-
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+  
   .play-toggle {
     text-align:center;
     width: 6em;

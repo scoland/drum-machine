@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Pad from './components/pad';
 import Tone from 'tone';
 import Transport from './components/transport';
+import Kit from './components/kit';
 require('../node_modules/font-awesome/scss/font-awesome.scss');
 require('./app.scss');
 
@@ -11,7 +12,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       matrix: Array(16).fill(false),
-      currentNote: null
+      currentNote: null,
+      currentSound: 'kick'
     }
     this.sequence = null;
   }
@@ -48,6 +50,15 @@ class App extends React.Component {
     });
   }
 
+  selectSound(event) {
+    const sound = event.target.dataset.sound;
+    if (sound !== this.state.currentSound) {
+      this.setState({
+        currentSound: sound
+      });
+    }
+  }
+
   playToggle() {
     if (this.sequence.state === 'started') {
       this.sequence.stop();
@@ -75,7 +86,8 @@ class App extends React.Component {
 
     return (
       <div className="machine-contain">
-        <Transport clickHandler={this.playToggle.bind(this)} isPlaying={isPlaying}/>
+        <Transport isPlaying={isPlaying} clickHandler={this.playToggle.bind(this)}/>
+        <Kit currentSound={this.state.currentSound} clickHandler={this.selectSound.bind(this)}/>
         <div className="pad-container">
           {pads}
         </div>
