@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Pad from './components/pad';
 import Tone from 'tone';
 import Transport from './components/transport';
+require('../node_modules/font-awesome/scss/font-awesome.scss');
 require('./app.scss');
 
 class App extends React.Component {
