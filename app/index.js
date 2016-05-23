@@ -71,7 +71,7 @@ class App extends React.Component {
                 />)
     }
 
-    const isPlaying = this.state.currentNote ? true : false;
+    const isPlaying = this.state.currentNote === null ? false : true;
 
     return (
       <div className="machine-contain">
