@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
+
 import Pad from './components/pad';
 import Tone from 'tone';
 import Transport from './components/transport';
@@ -11,7 +13,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matrix: Array(16).fill(false),
+      matrix: {
+        kick: Array(16).fill(false),
+        snare: Array(16).fill(false)
+      },
       currentNote: null,
       currentSound: 'kick'
     }
@@ -20,7 +25,8 @@ class App extends React.Component {
 
   componentDidMount() {
     const kit = new Tone.PolySynth(1, Tone.Sampler, {
-			"kick" : "/app/sounds/kick.mp3",
+			"kick": "/app/sounds/kick.wav",
+      "snare": "/app/sounds/snare.wav"
 		}, {
 			"volume" : -10,
 		}).toMaster();
@@ -30,8 +36,10 @@ class App extends React.Component {
         currentNote: note
       });
 
-      if (this.state.matrix[note]) {
-        kit.triggerAttackRelease("kick", "4n", time);
+      for (let key in this.state.matrix) {
+        if (this.state.matrix[key][note]) {
+          kit.triggerAttackRelease(key, "4n", time);
+        }
       }
 
     }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "16n");
@@ -42,11 +50,14 @@ class App extends React.Component {
   }
 
   trigToggle(event) {
+    // Make this a little more readable
     const step = event.target.dataset.step;
-    const newMatrix = this.state.matrix;
-    newMatrix[step] = !newMatrix[step];
+    const newMatrix = {[this.state.currentSound]: []};
+    newMatrix[this.state.currentSound] = this.state.matrix[this.state.currentSound];
+    newMatrix[this.state.currentSound][step] = !newMatrix[this.state.currentSound][step];
+    const newMatrixState = _.assign(newMatrix, this.state.matrix);
     this.setState({
-      matrix: newMatrix
+      matrix: newMatrixState
     });
   }
 
@@ -76,7 +87,7 @@ class App extends React.Component {
       pads.push(<Pad
                   step={i}
                   isOn={this.state.currentNote === i}
-                  isTrig={this.state.matrix[i]}
+                  isTrig={this.state.matrix[this.state.currentSound][i]}
                   key={i}
                   clickHandler={this.trigToggle.bind(this)}
                 />)
@@ -96,4 +107,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

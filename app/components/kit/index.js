@@ -5,14 +5,15 @@ require('./kit.scss');
 class Kit extends React.Component {
   render() {
     const sounds = ["kick", "snare"];
-    const soundButtons = sounds.map( sound => {
+    const soundButtons = sounds.map( (sound, index) => {
       const isActive = this.props.currentSound === sound ? 'active' : '';
       return <a
-        className={classNames(sound, isActive)}
-        data-sound={sound}
-        onClick={this.props.clickHandler}>
-          {sound}
-        </a>
+              className={classNames(sound, isActive)}
+              data-sound={sound}
+              onClick={this.props.clickHandler}
+              key={index}>
+                {sound}
+             </a>
     });
 
     return (

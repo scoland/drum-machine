@@ -12,6 +12,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "font-awesome": "^4.6.1",
+    "lodash": "^4.13.1",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "tone": "^0.6.1"
