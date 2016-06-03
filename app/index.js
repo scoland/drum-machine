@@ -28,7 +28,7 @@ class App extends React.Component {
 			"kick": "/app/sounds/kick.wav",
       "snare": "/app/sounds/snare.wav"
 		}, {
-			"volume" : -10,
+			"volume" : -6,
 		}).toMaster();
 
     this.sequence = new Tone.Sequence((time, note) => {
