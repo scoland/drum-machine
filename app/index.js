@@ -18,7 +18,8 @@ class App extends React.Component {
         snare: Array(16).fill(false)
       },
       currentNote: null,
-      currentSound: 'kick'
+      currentSound: 'kick',
+      bpm: 120
     }
     this.sequence = null;
   }
@@ -81,6 +82,15 @@ class App extends React.Component {
     }
   }
 
+  changeBPM(event) {
+    const direction = event.target.dataset.bpm;
+    const newBPM = direction === 'up' ? this.state.bpm + 1 : this.state.bpm - 1;
+    Tone.Transport.bpm.value = newBPM;
+    this.setState({
+      bpm: newBPM
+    });
+  }
+
   render() {
     const pads = [];
     for (var i = 0; i < 16; i++) {
@@ -97,8 +107,17 @@ class App extends React.Component {
 
     return (
       <div className="machine-contain">
-        <Transport isPlaying={isPlaying} clickHandler={this.playToggle.bind(this)}/>
-        <Kit currentSound={this.state.currentSound} clickHandler={this.selectSound.bind(this)}/>
+        <Transport
+          isPlaying={isPlaying}
+          clickHandler={this.playToggle.bind(this)}
+          bpmHandler={this.changeBPM.bind(this)}
+        />
+
+        <Kit
+          currentSound={this.state.currentSound}
+          clickHandler={this.selectSound.bind(this)}
+        />
+
         <div className="pad-container">
           {pads}
         </div>
