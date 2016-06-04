@@ -1,0 +1,17 @@
+.dial {
+  position: relative;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: #6C6692;
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    background-color: #F19EB1;
+    top: 0;
+    left: 50%;
+  }
+}

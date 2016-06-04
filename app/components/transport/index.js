@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Dial from '../dial';
 require('./transport.scss');
 
 class Transport extends React.Component {
@@ -11,7 +12,8 @@ class Transport extends React.Component {
         <a className="play-toggle" onClick={this.props.clickHandler}>
           <i className={buttonClasses} aria-hidden="true"></i>
         </a>
-        <a onClick={this.props.bpmHandler} data-bpm="up">BPM UP</a>
+        //<a onClick={this.props.bpmHandler} data-bpm="up">BPM UP</a>
+        <Dial min={20} max={220} value={0} />
       </div>
     );
   }
