@@ -4,7 +4,7 @@ require('./kit.scss');
 
 class Kit extends React.Component {
   render() {
-    const sounds = ["kick", "snare"];
+    const sounds = ["kick", "snare", "closedHat"];
     const soundButtons = sounds.map( (sound, index) => {
       const isActive = this.props.currentSound === sound ? 'active' : '';
       return <a

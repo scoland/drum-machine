@@ -15,7 +15,8 @@ class App extends React.Component {
     this.state = {
       matrix: {
         kick: Array(16).fill(false),
-        snare: Array(16).fill(false)
+        snare: Array(16).fill(false),
+        closedHat: Array(16).fill(false)
       },
       currentNote: null,
       currentSound: 'kick',
@@ -27,7 +28,8 @@ class App extends React.Component {
   componentDidMount() {
     const kit = new Tone.PolySynth(1, Tone.Sampler, {
 			"kick": "/app/sounds/kick.wav",
-      "snare": "/app/sounds/snare.wav"
+      "snare": "/app/sounds/snare.wav",
+      "closedHat": "/app/sounds/closed-hat.wav"
 		}, {
 			"volume" : -6,
 		}).toMaster();
