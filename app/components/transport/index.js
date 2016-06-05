@@ -12,8 +12,8 @@ class Transport extends React.Component {
         <a className="play-toggle" onClick={this.props.clickHandler}>
           <i className={buttonClasses} aria-hidden="true"></i>
         </a>
-        //<a onClick={this.props.bpmHandler} data-bpm="up">BPM UP</a>
-        <Dial min={20} max={220} value={0} />
+        <h3>BPM: {this.props.currentBPM}</h3>
+        <Dial min={20} max={220} value={120} bpmHandler={this.props.bpmHandler}/>
       </div>
     );
   }

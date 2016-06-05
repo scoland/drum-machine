@@ -82,9 +82,7 @@ class App extends React.Component {
     }
   }
 
-  changeBPM(event) {
-    const direction = event.target.dataset.bpm;
-    const newBPM = direction === 'up' ? this.state.bpm + 1 : this.state.bpm - 1;
+  changeBPM(newBPM) {
     Tone.Transport.bpm.value = newBPM;
     this.setState({
       bpm: newBPM
@@ -111,6 +109,7 @@ class App extends React.Component {
           isPlaying={isPlaying}
           clickHandler={this.playToggle.bind(this)}
           bpmHandler={this.changeBPM.bind(this)}
+          currentBPM={this.state.bpm}
         />
 
         <Kit
