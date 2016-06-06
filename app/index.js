@@ -13,10 +13,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matrix: {
-        kick: Array(16).fill(false),
-        snare: Array(16).fill(false),
-        closedHat: Array(16).fill(false)
+      instruments: {
+        kick: {
+          matrix: Array(16).fill(false),
+          velocity: -6
+        },
+        snare: {
+          matrix: Array(16).fill(false),
+          velocity: -6
+        },
+        closedHat: {
+          velocity: Array(16).fill(false),
+        }
       },
       currentNote: null,
       currentSound: 'kick',
@@ -41,7 +49,7 @@ class App extends React.Component {
 
       for (let key in this.state.matrix) {
         if (this.state.matrix[key][note]) {
-          kit.triggerAttackRelease(key, "4n", time);
+          kit.triggerAttackRelease(key, "4n", time, .5);
         }
       }
 
