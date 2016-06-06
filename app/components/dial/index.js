@@ -5,7 +5,7 @@ class Dial extends React.Component {
 
   constructor(props) {
     super(props);
-    this.currentDeg = props.value;
+    this.currentDeg = this.degreesHelper(props.value + 180);
     this.startDrag = this.startDrag.bind(this);
   }
 
@@ -26,18 +26,14 @@ class Dial extends React.Component {
 			const b = center.x - e.pageX;
 			let deg = Math.floor((Math.atan2(a,b)*rad2deg) - 90);
 
-      if (deg < 0) {
-        deg += 360;
-      }
+      deg = this.degreesHelper(deg);
 
-      if(deg < 0){
-				deg = 360 + deg;
-			} else if (deg > 359) {
-				deg = deg % 360;
-			}
+      let bpm = deg + 180;
+
+      bpm = this.degreesHelper(bpm);
 
       this.currentDeg = deg;
-      this.props.bpmHandler(deg);
+      this.props.bpmHandler(bpm);
       this.forceUpdate();
     };
 
@@ -46,6 +42,16 @@ class Dial extends React.Component {
     document.addEventListener('mouseup', e => {
       document.removeEventListener('mousemove', moveHandler);
     });
+  }
+
+  // This function makes sure the number is between 0-360
+  degreesHelper(num) {
+    if(num < 0){
+      num = 360 + num;
+    } else if (num > 359) {
+      num = num % 360;
+    }
+    return num;
   }
 
   render() {
