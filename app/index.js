@@ -16,14 +16,15 @@ class App extends React.Component {
       instruments: {
         kick: {
           matrix: Array(16).fill(false),
-          velocity: -6
+          velocity: .6
         },
         snare: {
           matrix: Array(16).fill(false),
-          velocity: -6
+          velocity: .6
         },
         closedHat: {
-          velocity: Array(16).fill(false),
+          matrix: Array(16).fill(false),
+          velocity: .6
         }
       },
       currentNote: null,
@@ -47,9 +48,10 @@ class App extends React.Component {
         currentNote: note
       });
 
-      for (let key in this.state.matrix) {
-        if (this.state.matrix[key][note]) {
-          kit.triggerAttackRelease(key, "4n", time, .5);
+      for (let instrument in this.state.instruments) {
+        console.log(this.state.instruments[instrument]);
+        if (this.state.instruments[instrument].matrix[note]) {
+          kit.triggerAttackRelease(instrument, "4n", time, .5);
         }
       }
 
@@ -61,14 +63,18 @@ class App extends React.Component {
   }
 
   trigToggle(event) {
-    // Make this a little more readable
     const step = event.target.dataset.step;
-    const newMatrix = {[this.state.currentSound]: []};
-    newMatrix[this.state.currentSound] = this.state.matrix[this.state.currentSound];
-    newMatrix[this.state.currentSound][step] = !newMatrix[this.state.currentSound][step];
-    const newMatrixState = _.assign(newMatrix, this.state.matrix);
+    const oldMatrix = this.state.instruments[this.state.currentSound].matrix;
+    const newMatrix = oldMatrix;
+    newMatrix[step] = !newMatrix[step];
+    let newInstrument = {
+      matrix: newMatrix,
+      velocity: this.state.instruments[this.state.currentSound].velocity
+    }
+    const newInstruments = this.state.instruments;
+    this.state.instruments[this.state.currentSound] = newInstrument;
     this.setState({
-      matrix: newMatrixState
+      instruments: newInstruments
     });
   }
 
@@ -105,7 +111,7 @@ class App extends React.Component {
       pads.push(<Pad
                   step={i}
                   isOn={this.state.currentNote === i}
-                  isTrig={this.state.matrix[this.state.currentSound][i]}
+                  isTrig={this.state.instruments[this.state.currentSound].matrix[i]}
                   key={i}
                   clickHandler={this.trigToggle.bind(this)}
                 />)
