@@ -49,9 +49,9 @@ class App extends React.Component {
       });
 
       for (let instrument in this.state.instruments) {
-        console.log(this.state.instruments[instrument]);
-        if (this.state.instruments[instrument].matrix[note]) {
-          kit.triggerAttackRelease(instrument, "4n", time, .5);
+        const current = this.state.instruments[instrument];
+        if (current.matrix[note]) {
+          kit.triggerAttackRelease(instrument, "4n", time, current.velocity);
         }
       }
 
