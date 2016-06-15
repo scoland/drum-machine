@@ -40,16 +40,6 @@ class Dial extends React.Component {
     });
   }
 
-  // This function makes sure the number is between the min and max values
-  degreesHelper(min, max, num) {
-    if(num < min){
-      num = max + num;
-    } else if (num > max - 1) {
-      num = num % max;
-    }
-    return num;
-  }
-
   convertRange(oldMin, oldMax, newMin, newMax, oldValue) {
     return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
   }
