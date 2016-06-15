@@ -5,7 +5,7 @@ class Dial extends React.Component {
 
   constructor(props) {
     super(props);
-    this.currentDeg = this.degreesHelper(props.value + 180);
+    this.currentDeg = this.convertRange(this.props.min, this.props.max, 0, 360, this.props.value);
     this.startDrag = this.startDrag.bind(this);
   }
 
@@ -22,18 +22,14 @@ class Dial extends React.Component {
     const rad2deg = 180/Math.PI;
 
     const moveHandler = e => {
-      const a = center.y - e.pageY;
-			const b = center.x - e.pageX;
-			let deg = Math.floor((Math.atan2(a,b)*rad2deg) - 90);
+      const offsetX = e.pageX - center.x;
+      const offsetY = center.y - e.pageY;
+			let cssDeg = this.arcTanHelper(offsetX, offsetY);
 
-      deg = this.degreesHelper(deg);
+      let newValue = Math.floor(this.convertRange(0, 360, this.props.min, this.props.max, cssDeg));
 
-      let bpm = deg + 180;
-
-      bpm = this.degreesHelper(bpm);
-
-      this.currentDeg = deg;
-      this.props.bpmHandler(bpm);
+      this.currentDeg = cssDeg;
+      this.props.turnHandler(newValue);
       this.forceUpdate();
     };
 
@@ -44,14 +40,43 @@ class Dial extends React.Component {
     });
   }
 
-  // This function makes sure the number is between 0-360
-  degreesHelper(num) {
-    if(num < 0){
-      num = 360 + num;
-    } else if (num > 359) {
-      num = num % 360;
+  // This function makes sure the number is between the min and max values
+  degreesHelper(min, max, num) {
+    if(num < min){
+      num = max + num;
+    } else if (num > max - 1) {
+      num = num % max;
     }
     return num;
+  }
+
+  convertRange(oldMin, oldMax, newMin, newMax, oldValue) {
+    return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
+  }
+
+  // This function takes an X and a Y value and returns the correct css offset in degrees from
+  // the bottom of the knob depending on the quadrant
+  arcTanHelper(x, y) {
+  	const absX = Math.abs(x);
+  	const absY = Math.abs(y);
+    const rad2deg = 180 / Math.PI;
+
+    // Quadrant 1
+    if (x >= 0 && y >= 0) {
+    	return 180 + rad2deg * Math.atan2(absX, absY);
+    }
+    // Quadrant 2
+    if (x < 0 && y >= 0) {
+      return 90 + rad2deg * Math.atan2(absY, absX);
+    }
+    // Quadrant 3
+    if (x < 0 && y < 0) {
+      return rad2deg * Math.atan2(absX, absY);
+    }
+    // Quadrant 4
+    if (x >= 0 && y < 0) {
+      return 270 + rad2deg * Math.atan2(absY, absX);
+    }
   }
 
   render() {
@@ -66,7 +91,8 @@ class Dial extends React.Component {
 Dial.propTypes = {
   value: React.PropTypes.number,
   min: React.PropTypes.number,
-  max: React.PropTypes.number
+  max: React.PropTypes.number,
+  turnHandler: React.PropTypes.func
 };
 
 export default Dial;

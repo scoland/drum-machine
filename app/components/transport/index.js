@@ -13,7 +13,7 @@ class Transport extends React.Component {
           <i className={buttonClasses} aria-hidden="true"></i>
         </a>
         <h3>BPM: {this.props.currentBPM}</h3>
-        <Dial min={20} max={220} value={120} bpmHandler={this.props.bpmHandler}/>
+        <Dial min={20} max={220} value={120} turnHandler={this.props.bpmHandler}/>
       </div>
     );
   }

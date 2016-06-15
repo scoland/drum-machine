@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-
 import Pad from './components/pad';
 import Tone from 'tone';
 import Transport from './components/transport';
