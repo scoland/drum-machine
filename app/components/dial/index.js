@@ -40,12 +40,14 @@ class Dial extends React.Component {
     });
   }
 
+  // Converts a value from one range to another, keeping ratio consistent
   convertRange(oldMin, oldMax, newMin, newMax, oldValue) {
     return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
   }
 
   // This function takes an X and a Y value and returns the correct css offset in degrees from
   // the bottom of the knob depending on the quadrant
+  // return value is between 0 and 360
   arcTanHelper(x, y) {
   	const absX = Math.abs(x);
   	const absY = Math.abs(y);
