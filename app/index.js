@@ -120,18 +120,19 @@ class App extends React.Component {
 
     return (
       <div className="machine-contain">
-        <Transport
-          isPlaying={isPlaying}
-          clickHandler={this.playToggle.bind(this)}
-          bpmHandler={this.changeBPM.bind(this)}
-          currentBPM={this.state.bpm}
-        />
 
         <Kit
           currentSound={this.state.currentSound}
           clickHandler={this.selectSound.bind(this)}
         />
 
+        <Transport
+        isPlaying={isPlaying}
+        clickHandler={this.playToggle.bind(this)}
+        bpmHandler={this.changeBPM.bind(this)}
+        currentBPM={this.state.bpm}
+        />
+        
         <div className="pad-container">
           {pads}
         </div>

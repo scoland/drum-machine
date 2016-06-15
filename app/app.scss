@@ -1,4 +1,13 @@
+html {
+  height: 100%;
+}
+
 body {
-  background-color: #413B56;
-  margin: 1em;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5aacc1+0,81c4d2+99 */
+background: #5aacc1; /* Old browsers */
+background: -moz-linear-gradient(top,  #5aacc1 0%, #81c4d2 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #5aacc1 0%,#81c4d2 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #5aacc1 0%,#81c4d2 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5aacc1', endColorstr='#81c4d2',GradientType=0 ); /* IE6-9 */
+margin: 1em;
 }

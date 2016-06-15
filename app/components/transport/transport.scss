@@ -1,18 +1,40 @@
 .transport-contain {
+  margin-top: 4em;
+  margin-bottom: 3em;
   display: inline-block;
   float: left;
   cursor: pointer;
-  
+  clear: both;
+
   .play-toggle {
+    float: left;
     text-align:center;
     width: 6em;
     height: 4em;
-    background-color: #6C6692;
+    background-color: #8580a6;
+    margin-right: 2em;
+
     display: block;
     i {
       padding-top: .3em;
       color: #F19EB1;
       font-size: 2.5em;
     }
+  }
+
+  .bpm-display {
+    float: left;
+    width: 2em;
+    border: 3px solid #F19EB1;
+    color: #8580a6;
+    font-family: helvetica;
+    font-size: 2em;
+    text-align: center;
+    padding: 10px 20px;
+    margin-right: 1em;
+  }
+
+  .dial {
+    float: left;
   }
 }
